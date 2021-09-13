@@ -49,7 +49,7 @@ async def read_file(file_path: str):
 # Querying Parameters - for searches
 fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
 
-@app.get("/items")
+@app.get("/item")
 async def read_item(skip: int = 0, limit: int = 10):
     return fake_items_db[skip: skip + limit]
 
@@ -74,7 +74,7 @@ async def read_optional(optional_id: str, q: Optional[str] = None, short: bool =
     return optional
 
 # Multiple path and query parameters
-@app.get("/users/{user_id}/items/{item_id}")
+@app.get("/usr/{user_id}/items/{item_id}")
 async def read_user_item(user_id: int, item_id: str, q: Optional[str] = None, short: bool = False):
     item = {"item_id": item_id, "owner_id": user_id}
     if q:
@@ -85,4 +85,9 @@ async def read_user_item(user_id: int, item_id: str, q: Optional[str] = None, sh
         )
     return item
 
+# Required query parameters
+@app.get("/mute/{mute_id}")
+async def read_user_itemized(mute_id: str, needy: str):
+    item = {"mute_id": mute_id, "needy": needy}
+    return item
 
