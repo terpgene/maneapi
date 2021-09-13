@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from enum import Enum
 from typing import Optional
+from pydantic import BaseModel
 
 # Declare the Enum class extending both String Type and Enum
 class ModelName(str, Enum):
@@ -90,4 +91,17 @@ async def read_user_item(user_id: int, item_id: str, q: Optional[str] = None, sh
 async def read_user_itemized(mute_id: str, needy: str):
     item = {"mute_id": mute_id, "needy": needy}
     return item
+
+
+
+# Implementing Request Body
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None 
+    price: float
+    tax: Optional[float] = None 
+
+@app.post("/transact/")
+async def create_transact(transact: Item):
+    return transact
 
