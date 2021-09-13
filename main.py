@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from enum import Enum
+from typing import Optional
 
 # Declare the Enum class extending both String Type and Enum
 class ModelName(str, Enum):
@@ -51,3 +52,10 @@ fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"
 @app.get("/items")
 async def read_item(skip: int = 0, limit: int = 10):
     return fake_items_db[skip: skip + limit]
+
+# Optional Parameters
+@app.get("/opts/{opts_id}")
+async def read_opt(opts_id: str, q: Optional[str] = None):
+    if q:
+        return {"opts_id": opts_id, "q": q}
+    return {"opts_id": opts_id}
