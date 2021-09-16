@@ -95,7 +95,7 @@ async def read_user_itemized(mute_id: str, needy: str):
 
 
 # Implementing Request Body
-class Item(BaseModel):
+class Item(BaseModel):  # Create a data model
     name: str
     description: Optional[str] = None 
     price: float
@@ -108,4 +108,5 @@ async def create_transact(transact: Item):
         price_with_tax = transact.price + transact.tax
         transact_dict.update({"price_with_tax": price_with_tax})
     return transact_dict
+
 
