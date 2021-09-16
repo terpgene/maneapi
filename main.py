@@ -103,5 +103,9 @@ class Item(BaseModel):
 
 @app.post("/transact/")
 async def create_transact(transact: Item):
-    return transact
+    transact_dict = transact.dict()
+    if transact.tax:
+        price_with_tax = transact.price + transact.tax
+        transact_dict.update({"price_with_tax": price_with_tax})
+    return transact_dict
 
